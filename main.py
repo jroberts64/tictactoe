@@ -15,10 +15,15 @@ def displayBoard(board):
 
 def getMove(board,player):
     loc = 0
+
     while not (isValidLoc(loc) and isLocEmpty(board,loc)):
-        locstr = input(f'Where do you want to put your {player}? (1-9) ')
-        if locstr.isdigit():
-            loc = int(locstr)
+        try:
+            loc = int(input(f'Where do you want to put your {player}? (1-9) '))
+            if not isValidLoc(loc):
+                raise ValueError('Bad location value')
+        except:
+            print('Error: Please enter a number between 1 and 9')
+            
     return loc
 
 
