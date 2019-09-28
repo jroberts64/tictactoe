@@ -1,5 +1,7 @@
 import sys
 
+players = ['X','O']
+
 
 def displayBoard(board):
     print('\n\n\n\n\n')
@@ -13,15 +15,19 @@ def displayBoard(board):
 
 def getMove(board,player):
     loc = 0
-    while loc not in range(1,10) or not isLocationEmpty(board,loc):
+    while not (isValidLoc(loc) and isLocEmpty(board,loc)):
         locstr = input(f'Where do you want to put your {player}? (1-9) ')
         if locstr.isdigit():
             loc = int(locstr)
     return loc
 
 
-def isLocationEmpty(board,loc):
+def isLocEmpty(board,loc):
     return board[loc] == ' '
+
+
+def isValidLoc(loc):
+    return loc in range(1,10)
 
 
 def initBoard(board):
@@ -57,14 +63,13 @@ def initGame(board):
     initBoard(board)
     displayBoard(board)
 
-    while player not in 'XO':
+    while player not in players:
         player = input(f'Who should go first, X or O? ').upper()
     return player
 
 
 def main():
     board = ['','','','','','','','','','']
-    players = ['X','O']
     win = ''
 
     first_player = initGame(board)
